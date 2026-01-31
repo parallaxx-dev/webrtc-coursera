@@ -9,17 +9,16 @@ let remoteIceCandidates = []
 
 let localStream
 
-const webRTCConfigurations = {
-  iceServers: [
-    {
-      urls: [
-        "stun:stun.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-        "stun:stun4.l.google.com:19302",
-      ],
-    },
-  ],
+let webRTCConfigurations
+
+export async function fetchwebRTCConfigurations() {
+  try {
+    const res = await fetch("/ice-config", { method: "GET" })
+    webRTCConfigurations = await res.json()
+  } catch (error) {
+    console.log("Error fetching webRTC configurations")
+    ui.logToCustomConsole("Error fetching webRTC configurations")
+  }
 }
 
 export async function startWebRTCProcess(isOfferer, remoteOffer = null) {

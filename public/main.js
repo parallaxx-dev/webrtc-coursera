@@ -15,6 +15,8 @@ const wsClientConnection = new WebSocket(wsUrl)
 
 ws.registerSocketEvents(wsClientConnection)
 
+await rtc.fetchwebRTCConfigurations()
+
 ui.DOM.createRoomButton.addEventListener("click", (e) => {
   const roomName = ui.DOM.inputRoomNameElement.value
   if (!roomName) {
